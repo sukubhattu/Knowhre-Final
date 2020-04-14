@@ -1,0 +1,132 @@
+{% extends 'categories/base.html' %}
+{% load crispy_forms_tags %}
+{% load comments %}
+{% block content %}
+<h1>if you are owner you can update or delete this </h1>
+<a href ="{% url 'company_update' company.category company.id %}"><button>update</button></a>
+<a href = "{% url 'company_delete' company.category company.id %}"><button>delete</button></a>
+<center><h3>{{object.name}}</h3></center>
+		<style>
+
+			 html,body{
+				height: 90%;
+				width: 100%;
+				margin:auto;
+			}
+			#map {
+				height:90%;
+				width:50%;
+				margin:auto;
+			}
+		</style>
+
+
+	<div id="map" class="map"></div>
+		<script>
+		//var map = L.map('map').fitWorld();
+			var map = L.map('map').setView([{{object.latitude}}, {{object.longitude }}], 11);
+			L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+			maxZoom: 18,
+			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+			id: 'mapbox.streets'
+			}).addTo(map);
+			function onLocationFound(e)
+			{
+				L.marker(e.latlng).addTo(map);
+				showOnScreen(e.latlng.lat, e.latlng.lng);
+				calculateDistance(e.latlng);
+			}
+			map.on('locationfound', onLocationFound);
+			map.locate({ maxZoom: 16});
+			function showOnScreen(long, lat)
+			{
+				document.getElementById('desc').innerHTML = long + ","+ lat;
+			}
+			function calculateDistance(e)
+			{
+				distr = e.distanceTo(L.latLng({{object.latitude}},{{object.longitude}}));
+				document.getElementById('distr').innerHTML = distr;
+			}
+			var myIcon = L.icon(
+				{
+					iconUrl: 'https://image.flaticon.com/icons/svg/484/484167.svg',
+					iconSize: [38, 95],
+					iconAnchor: [22, 94],
+					popupAnchor: [-3, -76],
+					shadowUrl: '',
+					shadowSize: [68, 95],
+					shadowAnchor: [22, 94]
+				});
+			L.marker([{{object.latitude}}, {{object.longitude}}], {icon:myIcon}).addTo(map)
+		.bindPopup("{{object.name}}").openPopup();
+
+
+			map.on('click', function(e)
+			{
+				alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
+			});
+			map.on('click', function(e)
+			{
+				var popLocation= e.latlng;
+				var popup = L.popup()
+				.setLatLng(popLocation)
+				.setContent('you clicked here')
+				.openOn(map);
+			});
+		</script>
+	<div>
+	{% comment %} <div id='distr' style="margin-left:200px;"></div>
+	<div id='desc' style="margin-left:200px;"></div> {% endcomment %}
+
+	</div>
+
+	<div style="margin-left:200px;">
+
+
+<button class="btn btn-dark"style="margin-left:200px;;">
+	<a href="{% url 'postman:write' object.owner %}" style="color:white;">write to {{ object.owner }}
+	</a>
+</button>
+ <br>
+
+ <b> Address: {{object.get_city }}</b><br>
+<b> you are {{ object.get_distance }} metres away from " {{ object.name }} ". See the blue marker for your own location </b>
+ {% get_comment_count for categories.company object.pk as comment_count %}
+<p>{{ comment_count }} comments have been posted about this place .</p>
+
+
+
+{% get_comment_list for categories.company object.pk as comment_list %}
+{% for comment in comment_list %}
+<p>Posted by: {{ comment.user_name }} on {{ comment.submit_date }}</p>
+...
+<p>Comment: {{ comment.comment }}</p>
+...
+{% endfor %}
+
+{% comment %} {% render_comment_form for company %} {% endcomment %}
+
+
+{% if user.is_authenticated %}
+    {% get_comment_form for company as form %}
+    <form action="{% comment_form_target %}" method="POST">
+    {% csrf_token %}
+    {{ form.comment }}
+
+    {{ form.content_type }}
+    {{ form.object_pk }}
+    {{ form.timestamp }}
+    {{ form.security_hash }}
+
+    <input type="hidden" name="next" value="{% url 'company_detail' object.category object.pk %}" />
+
+    <input type="hidden" name="next" value="{% url 'aboutus' %}" />
+
+    <input type="submit" value="Add comment" id="id_submit" />
+    </form>
+{% else %}
+    <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+{% endif %}
+{% endblock %}

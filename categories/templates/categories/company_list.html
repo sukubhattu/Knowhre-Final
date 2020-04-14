@@ -1,0 +1,60 @@
+{% extends 'categories/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br><br>
+	<div class = "container">
+		<a href = "{% url 'company_create' %}"><button class="btn btn-success" >Add a new new company</button></a>
+	</div>
+	{% for company in companies %}
+
+		<style>
+		a{
+			color: #464848;
+			text-align:left;
+		}
+		a:hover{
+			color: #676969;
+			text-decoration: none;
+		}
+		tr{
+			background:#E8EAE9;
+			border-radius: 25px;
+		}
+		table{
+			width:100%;
+		}
+		td:first-child {
+			border-top-left-radius: 10px;
+			border-bottom-left-radius: 10px;
+			padding:20px;
+		}
+		td:last-child {
+				border-bottom-right-radius: 10px;
+				border-top-right-radius: 10px;
+				padding:20px;
+		}
+	</style>
+	<br>
+
+	<div class="container">
+			<a href="{% url 'company_detail'  company.category company.id %}">
+				<table>
+						<tr>
+							<td width="250">
+								<h3>{{company.name}}</h3>
+							</td>
+							<td>
+								<b>Discription:</b><br> {{company.description}}<br>
+								<b>Owner: </b><br>{{company.owner}}<br>
+								<b>Distance from you: </b>{{ company.get_distance}} m <br>
+								<b>Address: </b>{{company.get_city}}<br>
+							</td>
+						</tr>
+				</table>
+			</a>
+		<hr>
+	</div>
+
+	
+	{% endfor %}
+{% endblock %}

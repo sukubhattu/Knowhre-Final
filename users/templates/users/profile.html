@@ -1,0 +1,42 @@
+{% extends 'categories/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <style>
+      a{
+        color: #1C2615;
+        text-align: center;
+      }
+      a:hover{
+        color: #394532;
+        text-decoration: none;
+      }
+    </style>
+    <div class = "container">
+        <div class="content-section">
+            <div class="media">
+            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+            <div class="media-body">
+                <h2 class="account-heading">{{ user.username }}</h2>
+                <p class="text-secondary">{{ user.email }}</p>
+            </div>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                <br><br>{% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Profile Info</legend>
+                    {{ u_form|crispy }}
+                    {{ p_form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-success type="submit">Update</button>
+                </div>
+            </form>
+        </div>
+        <a href = "/users/password_change"><button class="btn btn-outline-danger type="submit">Change Account Password</button></a>
+        <center>
+            <a href = "{% url 'postman:inbox' %}"><button class="btn btn-outline-dark">My Inbox</button></a>
+            <a href = "{% url 'postman:write' %}"><button class="btn btn-outline-dark">Messege Others</button></a>
+        </center>
+
+    </div>
+{% endblock %}

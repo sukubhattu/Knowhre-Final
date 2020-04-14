@@ -1,0 +1,8 @@
+db.sqlite3
+categories/__pycache__
+categories/migrations/
+knowhere/__pycache__/
+users/__pycache__/
+users/migrations/
+blog/migrations/
+.vscode

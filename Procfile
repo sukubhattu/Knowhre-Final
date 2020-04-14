@@ -1,0 +1,1 @@
+web: gunicorn knowhere.wsgi --log-file -

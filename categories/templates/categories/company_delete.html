@@ -1,0 +1,10 @@
+{% extends 'categories/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<form method = 'POST'>
+    	{% csrf_token %}
+    	{{form|crispy}}
+    	Do you want to delete {{object.name}}
+    	<button type = "submit" class="btn btn-link"> Delete </button>
+	</form>
+{% endblock %}

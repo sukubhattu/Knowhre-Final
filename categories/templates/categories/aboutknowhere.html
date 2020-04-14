@@ -1,0 +1,129 @@
+{% extends 'categories/base.html' %}
+{% block content %}
+
+<style>
+
+  .thumbnail {
+    position: relative;
+	}
+
+	.caption {
+	    position: absolute;
+	    top: 23%;
+	    left: 15%;
+	    margin:auto;
+        width:70%;        
+	}
+    .caption .content{
+        color:	#2F4F4F;
+        background:#EEEEEF;
+        padding-top: 70px;
+        padding-bottom:70px; 
+    }
+    .topcaption{
+        position: absolute;
+	    top: 2%;
+	    left: 12%;
+	    width: 65%;
+        text-align:left;
+        color:white;
+    }	
+
+    /*for parallex scrolling*/
+    .parallax {
+      /* The image used */
+      background-image: url("/static/step1.jpg");
+      margin-top: 100px;
+      position: relative;
+      /* Set a specific height */
+      margin-left: -20px;
+      margin-right: -15px;
+      margin-bottom: -25px;
+      min-height: 500px; 
+
+      /* Create the parallax scrolling effect */
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
+    /*end of parallex scrolling*/
+        }
+    .parallax-content{
+       color: #E6E4E4;
+        font-size:36px;
+        text-align: center;
+        padding: 50px;
+    }
+</style>
+
+<div class="row" id="box-search">
+    <div class="thumbnail text-center">
+        <img src="/static/download copy.jpg" width="100%" height="60%" alt="My image" class="img-responsive">
+        <div class="topcaption">
+            <br>
+            <h1>Knowhere</h1>
+            <p>A place to find what you want</p>
+        </div>
+        <div class="caption">
+                <img src="/static/back copy.png" width="100%" height="50%" alt="My image" class="img-responsive">
+                <div class="content">
+                    <h3>Directs you to your search.</h3>
+                    <p>You can search for any company or product you want.<br>Lists the best options near you.</p>
+
+                    
+
+                </div>
+        </div>
+    </div>
+</div>
+
+<br><br><br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-6 linebreak" style="padding-left: 50px;"> 
+            <img src="/static/search.png" width="200px">
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6 linebreak">
+            <img src="/static/chat.png" width="200px" height="80%">
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6 linebreak">
+            <img src="/static/location.png" width="200px" height="90%">
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6 linebreak">
+            <img src="/static/company.png" width="200px">
+        </div>
+    </div>
+    <div class="row" style="align-items: center;">
+        <div class="col-md-3 col-sm-3 col-xs-6 linebreak" style="padding-left: 50px;"> 
+            A place to <b>Search</b> any product or service
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6 linebreak" style="padding-left: 20px;">
+            Chat with the Company Owner 
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6 linebreak">
+            Shows <b>location</b> of Company on <b>Map</b>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6 linebreak">
+            Create Company Account
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="parallax" style="height: 50px;">
+<div class="parallax-content">
+    <br>
+    <h1>BRIDGE BETWEEN COMPANY AND CUSTOMER</h1>
+    <br> Has the best options for you 
+    <br>Create Account and explore Knowhere
+</div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'categories/base.html' %}
+{% block content %}
+  <style>
+      a{
+          color: green;
+      }
+      a:hover{
+          color: blue;
+      }
+  </style>
+  <section id="cover">
+    <div id="cover-caption">
+      <div id="container" class="container">
+        <div class="jumbotron jumbotron-fluid">
+          <div class="row">
+              <!-- if you want to remove the gray color then remove this jumbotron line below -->
+            <h1 class="display-5">Knowhere Logout</h1>
+            <div class="info-form">
+              <div class="container" style="padding:100px;">
+                <h1><i>You have been logged out</i></h1>
+                <h2><center><a href = "{% url 'login' %}">Want to login again?</a></center></h2>
+              </div>
+            </div>
+            <br> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

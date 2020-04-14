@@ -1,0 +1,175 @@
+{% extends 'categories/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<script>
+ 	 window.addEventListener( 'scroll', function() {
+        const nav = document.querySelector('.scrolled');
+        if( window.scrollY > 300)
+        {
+            nav.className = 'noscrolled'
+        } else {
+            nav.className = 'scrolled'
+        }
+        
+    });
+ 	
+</script>
+<style>
+  .thumbnail {
+    position: relative;
+	}
+
+	.caption {
+	    position: absolute;
+	    top: 50%;
+	    left: 35%;
+	    width: 65%;
+	}
+
+	.containerimage {
+	  position: relative;
+		max-width: 800px; /* Maximum width */
+	  margin: 0 auto; /* Center it */
+		padding-left:20px;
+	}
+
+	.containerimage .content {
+	  position: absolute; /* Position the background text */
+	  bottom: 42px; /* At the bottom. Use top:0 to append it to the top */
+	  background: rgb(0, 0, 0); /* Fallback color */
+	  background: rgba(0, 0, 0, 0.8); /* Black background with 0.5 opacity */
+	  color:black;
+		width:200px;
+		height:50px;
+		text-align:center;
+		padding-top:10px;
+	}
+	.container{
+		margin:auto;
+		max-width:900px;
+	}
+	.scrolled{
+			opacity: 0;
+		}
+	.noscrolled{
+			opacity: 1;
+	}
+	/*for parallex scrolling*/
+    .parallax {
+      /* The image used */
+      background-image: url("/static/nepal.png");
+      position: relative;
+      margin-top:-18px;
+      /* Set a specific height */
+      margin-left: -20px;
+      margin-right: -15px;
+      margin-bottom: -25px;
+      min-height: 500px; 
+
+      /* Create the parallax scrolling effect */
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
+    /*end of parallex scrolling*/
+        }
+    .parallax-content{
+       color: #E6E4E4;
+        font-size:36px;
+        text-align: center;
+        top: 0;
+        padding: 50px;
+    }
+    .parallaxfirst {
+      /* The image used */
+      background-image: url("/static/display copy.png");
+      position: relative;
+      /* Set a specific height */
+      margin-left: -20px;
+      margin-right: -15px;
+      margin-bottom: -25px;
+      min-height: 500px; 
+
+      /* Create the parallax scrolling effect */
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
+    /*end of parallex scrolling*/
+        }
+    .parallaxfirst-content{
+       color: #E6E4E4;
+        font-size:36px;
+        text-align: center;
+        top: 0;
+        padding: 50px;
+    }
+</style>
+<div class="parallaxfirst">
+		<div class="parallaxfirst-content">
+			<div class = "container">
+				<br>
+				<h1 style="text-align: left;">Knowhere</h1><br>
+				<a href = "{% url 'blog-home' %}"><button class="btn btn-success btn-lg active" >Go To Search</button></a>
+			</div>
+		</div>
+	</div>
+
+<br>
+<div class = "container">
+	<br><br>
+	<h3 style="text-align: center;">Companies</h3>
+	<br><br>
+</div>
+	<div class="container">
+			<div class="row" style="margin:auto;">
+					{% for company in companies %}
+						<div class="col-mx-1">
+								<!-- {{company.description}} -->
+								<div class="containerimage">
+									<a href="{% url 'company_list' company.name %}">
+										<img  src = "{{company.image.url}}" class="shadow mb-5 bg-white rounded" width="200" height="170">
+									</a>
+									<div class="content">
+										<a href="{% url 'company_list' company.name %}">{{company.name}}</a>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+		</div>
+	</div>
+
+	<div class="parallax">
+		<div class="parallax-content">
+			<div class = "container">
+				<br><br>
+				<h2>Have a look at our products</h2><br>
+				<a href = "{% url 'blog-home' %}"><button class="btn btn-info btn-lg active" >click me</button></a>
+			</div>
+		</div>
+	</div>
+
+	{% if is_paginated %}
+
+	{% if page_obj.has_previous %}
+	  <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+	  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+	{% endif %}
+
+	{% for num in page_obj.paginator.page_range %}
+	  {% if page_obj.number == num %}
+		<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+	  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+		<a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+	  {% endif %}
+	{% endfor %}
+
+	{% if page_obj.has_next %}
+	  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+	  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+	{% endif %}
+
+  {% endif %}
+{% endblock %}
+Chat conversation end
+Type a message...
+
+

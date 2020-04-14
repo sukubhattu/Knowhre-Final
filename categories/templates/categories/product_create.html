@@ -1,0 +1,13 @@
+{% extends 'categories/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<div class = "container" style="margin-left:250px; padding-right:350px;">
+	    <form method = 'POST'>
+				<h1><center>Create Your Company</center></h1>
+
+	        {% csrf_token %}
+	        {{form|crispy}}
+	        <button type = "submit" value = "submit" class="btn btn-dark"> Create </button>
+	    </form>
+	</div>
+{% endblock %}

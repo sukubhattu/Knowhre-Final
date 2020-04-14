@@ -1,0 +1,25 @@
+{% extends 'categories/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+  a{
+    color: #344F42;
+    text-align: center;
+  }
+  a:hover{
+    color: #557565;
+    text-decoration: none;
+  }
+</style>
+<div style="padding-left:200px; margin-right:200px;">
+  <form method="get">
+    {{ filter.form|crispy }}
+    <button type="submit" class="btn btn-info">Search</button>
+  </form>
+  <ul>
+  {% for object in filter.qs %}
+    <li><a href = "{% url 'company_detail' object.category object.pk %}">{{ object.name }} - {{ object.category }}</a></li>
+  {% endfor %}
+  </ul>
+</div>
+{% endblock %}
